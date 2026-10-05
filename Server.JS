@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 // Configuração OAuth2
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '255340364435-1lhb6me45l305vq0jqellsv9v31r0d98.apps.googleusercontent.com';
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || '';
-const REDIRECT_URL = process.env.REDIRECT_URL || 'http://localhost:3000/auth/callback';
+const REDIRECT_URL = process.env.REDIRECT_URL || 'https://gestor-financeiro-server.vercel.app/auth/callback';
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID || '1sKNjQB-QwyxiPtw6c2ilDMdN5RVx74Xh';
 
 const oauth2Client = new OAuth2Client(

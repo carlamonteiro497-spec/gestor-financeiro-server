@@ -22,7 +22,7 @@
             margin: 0 auto;
         }
 
-        /* Header com Logo */
+        /* Header com Logo e Botão */
         header {
             background: linear-gradient(135deg, #1e5a96 0%, #2a7bb4 100%);
             color: white;
@@ -30,6 +30,12 @@
             border-radius: 15px;
             margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(30, 90, 150, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
             display: flex;
             align-items: center;
             gap: 20px;
@@ -46,7 +52,6 @@
             font-size: 28px;
             font-weight: bold;
             border: 2px solid rgba(255, 255, 255, 0.4);
-            flex-shrink: 0;
         }
 
         .header-text h1 {
@@ -57,6 +62,28 @@
         .header-text p {
             opacity: 0.9;
             font-size: 0.9em;
+        }
+
+        .conectar-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+
+        .conectar-btn:hover {
+            background: white;
+            color: #2a7bb4;
+        }
+
+        .conectar-btn.conectado {
+            background: rgba(40, 167, 69, 0.3);
+            border-color: rgba(40, 167, 69, 0.8);
         }
 
         /* Banner de Vencimento */
@@ -88,10 +115,6 @@
             display: flex;
             align-items: center;
             gap: 15px;
-        }
-
-        .vencimento-icon {
-            font-size: 24px;
         }
 
         .vencimento-text {
@@ -131,7 +154,6 @@
             margin-bottom: 30px;
         }
 
-        /* Cards Section */
         .cards-section h2 {
             margin-bottom: 20px;
             color: #333;
@@ -194,7 +216,6 @@
             color: #dc3545;
         }
 
-        /* Calendar Section */
         .calendar-section {
             background: white;
             padding: 25px;
@@ -314,7 +335,27 @@
             background: transparent;
         }
 
-        /* Modal */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: #2a7bb4;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2a7bb4;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -386,27 +427,6 @@
             border-bottom: 1px solid #eee;
         }
 
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            color: #2a7bb4;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #2a7bb4;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         @media (max-width: 1024px) {
             .main-layout {
                 grid-template-columns: 1fr;
@@ -416,31 +436,30 @@
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
+                gap: 15px;
                 text-align: center;
-            }
-
-            .calendar-weekdays,
-            .calendar-days {
-                gap: 5px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header com Logo -->
+        <!-- Header com Logo e Botão Conectar -->
         <header>
-            <div class="logo">CI</div>
-            <div class="header-text">
-                <h1>Fluxo Financeiro</h1>
-                <p>Construindo o nosso futuro juntos.</p>
+            <div class="header-left">
+                <div class="logo">CI</div>
+                <div class="header-text">
+                    <h1>Fluxo Financeiro</h1>
+                    <p>Construindo o nosso futuro juntos.</p>
+                </div>
             </div>
+            <button class="conectar-btn" id="conectarBtn" onclick="conectarGoogle()">🔗 Conectar</button>
         </header>
 
         <!-- Banner de Vencimento -->
         <div id="vencimento-banner" class="vencimento-banner" style="display: none;">
             <div class="vencimento-content">
-                <div class="vencimento-icon">⚠️</div>
+                <div style="font-size: 24px;">⚠️</div>
                 <div class="vencimento-text">
                     <div class="vencimento-label">Contas a Vencer</div>
                     <div class="vencimento-details" id="vencimento-text">Carregando...</div>
@@ -451,7 +470,7 @@
 
         <div id="loading" class="loading">
             <div class="spinner"></div>
-            <p>Carregando dados...</p>
+            <p id="loading-text">Carregando dados...</p>
         </div>
 
         <div id="content" style="display:none;">
@@ -506,40 +525,63 @@
 
     <script>
         let dados = {};
-        let mesAtual = new Date(2026, 9); // Outubro 2026
+        let mesAtual = new Date();
+        let isConectado = false;
 
         const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
                        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
         const cardsConfig = [
-            { id: 'renda', label: '💵 RENDA LÍQUIDA', value: 6578.13, type: 'positive' },
-            { id: 'vale', label: '🍽️ VALE ALIMENTAÇÃO', value: 565.92, type: 'positive' },
-            { id: 'reembolsos', label: '↩️ REEMBOLSOS', value: 0.00, type: 'positive' },
-            { id: 'contas-fixas', label: '🏠 CONTAS FIXAS', value: 4561.13, type: 'negative' },
-            { id: 'cartao-santander', label: '💳 CARTÃO SANTANDER CAMILA', value: 7368.73, type: 'negative' },
-            { id: 'demais-cartoes', label: '💳 DEMAIS CARTÕES', value: 1215.59, type: 'warning' },
-            { id: 'disponivel', label: '📈 DISPONÍVEL (COMIDA + TRANSPORTE + EMERGÊNCIA)', value: -6567.32, type: 'negative' }
+            { id: 'renda', label: '💵 RENDA LÍQUIDA', value: 0, type: 'positive' },
+            { id: 'vale', label: '🍽️ VALE ALIMENTAÇÃO', value: 0, type: 'positive' },
+            { id: 'reembolsos', label: '↩️ REEMBOLSOS', value: 0, type: 'positive' },
+            { id: 'contas-fixas', label: '🏠 CONTAS FIXAS', value: 0, type: 'negative' },
+            { id: 'cartao-santander', label: '💳 CARTÃO SANTANDER', value: 0, type: 'negative' },
+            { id: 'demais-cartoes', label: '💳 DEMAIS CARTÕES', value: 0, type: 'warning' },
+            { id: 'disponivel', label: '📈 DISPONÍVEL', value: 0, type: 'negative' }
         ];
 
         function formatarMoeda(valor) {
             return 'R$ ' + parseFloat(valor || 0).toFixed(2).toString().replace('.', ',');
         }
 
+        function conectarGoogle() {
+            window.location.href = '/api/auth/login';
+        }
+
         async function carregarDados() {
+            const token = localStorage.getItem('auth_token');
+
+            if (!token) {
+                document.getElementById('loading').innerHTML = '<p>Clique em "Conectar" para autorizar com Google!</p>';
+                return;
+            }
+
+            isConectado = true;
+            document.getElementById('conectarBtn').classList.add('conectado');
+            document.getElementById('conectarBtn').textContent = '✅ Conectado';
+
             try {
-                const response = await fetch('dados.json');
+                document.getElementById('loading-text').textContent = 'Buscando dados da Google Sheets...';
+
+                const response = await fetch(`/api/sheets/data?token=${token}`);
                 const data = await response.json();
-                dados = data;
 
-                preencherCards();
-                gerarCalendario();
-                mostrarVencimento();
+                if (data.success) {
+                    dados = data;
+                    preencherCards();
+                    gerarCalendario();
+                    mostrarVencimento();
 
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                } else {
+                    document.getElementById('loading').innerHTML = `<p>Erro: ${data.error}</p>`;
+                }
 
             } catch (error) {
                 console.error('Erro:', error);
+                document.getElementById('loading').innerHTML = '<p>Erro ao carregar dados. Tente conectar novamente.</p>';
             }
         }
 
@@ -676,7 +718,28 @@
             gerarCalendario();
         }
 
-        window.onload = carregarDados;
+        // Verificar se há token na URL (callback do Google)
+        window.addEventListener('load', () => {
+            if (window.location.search.includes('code')) {
+                // Google retornou com code, agora o server vai fazer o callback
+                // Aguarda o server fazer a autenticação
+            }
+
+            // Se tiver token no localStorage, carrega dados
+            if (localStorage.getItem('auth_token')) {
+                carregarDados();
+            } else {
+                document.getElementById('loading').style.display = 'block';
+            }
+        });
+
+        // Listener para mensagens do callback
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'auth' && event.data.token) {
+                localStorage.setItem('auth_token', event.data.token);
+                carregarDados();
+            }
+        });
     </script>
 </body>
 </html>

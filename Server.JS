@@ -36,7 +36,7 @@ app.get('/api/auth/login', (req, res) => {
     prompt: 'consent'
   });
 
-  res.json({ url: authUrl });
+  res.redirect(authUrl);
 });
 
 // Rota: Callback de autenticação

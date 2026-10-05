@@ -22,19 +22,106 @@
             margin: 0 auto;
         }
 
+        /* Header com Logo */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e5a96 0%, #2a7bb4 100%);
             color: white;
-            padding: 40px 30px;
+            padding: 25px 30px;
             border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(30, 90, 150, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
-        header h1 {
-            font-size: 2em;
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            flex-shrink: 0;
+        }
+
+        .header-text h1 {
+            font-size: 1.8em;
             margin-bottom: 5px;
+        }
+
+        .header-text p {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+
+        /* Banner de Vencimento */
+        .vencimento-banner {
+            background: #dc3545;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+            animation: slideDown 0.4s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .vencimento-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .vencimento-icon {
+            font-size: 24px;
+        }
+
+        .vencimento-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .vencimento-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+
+        .vencimento-details {
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .vencimento-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .vencimento-close:hover {
+            opacity: 1;
         }
 
         .main-layout {
@@ -53,48 +140,48 @@
         .cards-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 12px;
         }
 
         .card {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-            border: 2px solid #e0e0e0;
+            padding: 22px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-left: 5px solid #2a7bb4;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
         }
 
         .card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
         }
 
         .card.positive {
-            border-color: #28a745;
+            border-left-color: #28a745;
         }
 
         .card.negative {
-            border-color: #dc3545;
+            border-left-color: #dc3545;
         }
 
         .card.warning {
-            border-color: #ffc107;
+            border-left-color: #ffc107;
         }
 
         .card-label {
-            font-size: 0.8em;
+            font-size: 0.75em;
             color: #666;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 600;
         }
 
         .card-value {
-            font-size: 1.8em;
+            font-size: 1.6em;
             font-weight: bold;
             color: #333;
         }
@@ -110,9 +197,9 @@
         /* Calendar Section */
         .calendar-section {
             background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
 
         .calendar-header {
@@ -123,23 +210,25 @@
         }
 
         .calendar-header button {
-            background: #667eea;
+            background: #2a7bb4;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 8px 18px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
+            font-size: 0.9em;
         }
 
         .calendar-header button:hover {
-            background: #764ba2;
+            background: #1e5a96;
+            transform: translateY(-2px);
         }
 
         .calendar-header h3 {
             color: #333;
-            font-size: 1.5em;
+            font-size: 1.4em;
             flex: 1;
             text-align: center;
         }
@@ -147,23 +236,23 @@
         .calendar-weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
         .weekday {
             text-align: center;
             font-weight: 600;
             color: #666;
-            padding: 10px 0;
-            font-size: 0.9em;
+            padding: 8px 0;
+            font-size: 0.85em;
             text-transform: uppercase;
         }
 
         .calendar-days {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
+            gap: 8px;
         }
 
         .day {
@@ -173,23 +262,24 @@
             align-items: center;
             justify-content: center;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s;
             background: white;
             font-weight: 500;
             position: relative;
+            font-size: 0.9em;
         }
 
         .day:hover {
-            border-color: #667eea;
-            background: #f9f9f9;
+            border-color: #2a7bb4;
+            background: #f0f6fb;
         }
 
         .day.today {
-            background: #667eea;
+            background: #2a7bb4;
             color: white;
-            border-color: #667eea;
+            border-color: #2a7bb4;
         }
 
         .day.has-event {
@@ -199,15 +289,12 @@
 
         .day.has-event.today {
             background: #dc3545;
-        }
-
-        .day-number {
-            font-size: 1.1em;
+            border-color: #dc3545;
         }
 
         .day-dot {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background: #dc3545;
             border-radius: 50%;
             margin-top: 2px;
@@ -218,14 +305,13 @@
         }
 
         .day.empty {
-            background: #f9f9f9;
+            background: transparent;
             cursor: default;
-            border-color: #f0f0f0;
+            border-color: transparent;
         }
 
         .day.empty:hover {
-            background: #f9f9f9;
-            border-color: #f0f0f0;
+            background: transparent;
         }
 
         /* Modal */
@@ -248,8 +334,8 @@
 
         .modal-content {
             background: white;
-            padding: 40px;
-            border-radius: 15px;
+            padding: 35px;
+            border-radius: 12px;
             max-width: 600px;
             max-height: 80vh;
             overflow-y: auto;
@@ -259,8 +345,8 @@
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: none;
             border: none;
             font-size: 28px;
@@ -269,30 +355,30 @@
         }
 
         .modal-title {
-            font-size: 1.6em;
+            font-size: 1.5em;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .modal-value {
-            font-size: 2.2em;
+            font-size: 2em;
             font-weight: bold;
-            color: #667eea;
+            color: #2a7bb4;
             margin-bottom: 25px;
         }
 
         .modal-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
 
         .modal-table th {
-            background: #667eea;
+            background: #2a7bb4;
             color: white;
             padding: 12px;
             text-align: left;
             font-weight: 600;
+            font-size: 0.9em;
         }
 
         .modal-table td {
@@ -302,13 +388,13 @@
 
         .loading {
             text-align: center;
-            padding: 40px;
-            color: #667eea;
+            padding: 60px 20px;
+            color: #2a7bb4;
         }
 
         .spinner {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            border-top: 4px solid #2a7bb4;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -328,23 +414,40 @@
         }
 
         @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
             .calendar-weekdays,
             .calendar-days {
                 gap: 5px;
-            }
-
-            .day {
-                font-size: 0.9em;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header com Logo -->
         <header>
-            <h1>💰 Gestor Financeiro</h1>
-            <p>Controle suas finanças com facilidade</p>
+            <div class="logo">CI</div>
+            <div class="header-text">
+                <h1>Fluxo Financeiro</h1>
+                <p>Construindo o nosso futuro juntos.</p>
+            </div>
         </header>
+
+        <!-- Banner de Vencimento -->
+        <div id="vencimento-banner" class="vencimento-banner" style="display: none;">
+            <div class="vencimento-content">
+                <div class="vencimento-icon">⚠️</div>
+                <div class="vencimento-text">
+                    <div class="vencimento-label">Contas a Vencer</div>
+                    <div class="vencimento-details" id="vencimento-text">Carregando...</div>
+                </div>
+            </div>
+            <button class="vencimento-close" onclick="fecharVencimento()">×</button>
+        </div>
 
         <div id="loading" class="loading">
             <div class="spinner"></div>
@@ -411,11 +514,11 @@
         const cardsConfig = [
             { id: 'renda', label: '💵 RENDA LÍQUIDA', value: 6578.13, type: 'positive' },
             { id: 'vale', label: '🍽️ VALE ALIMENTAÇÃO', value: 565.92, type: 'positive' },
-            { id: 'reembolsos', label: '↩️ REEMBOLSOS', value: 0, type: 'positive' },
+            { id: 'reembolsos', label: '↩️ REEMBOLSOS', value: 0.00, type: 'positive' },
             { id: 'contas-fixas', label: '🏠 CONTAS FIXAS', value: 4561.13, type: 'negative' },
-            { id: 'cartao-santander', label: '💳 CARTÃO SANTANDER', value: 7368.73, type: 'negative' },
+            { id: 'cartao-santander', label: '💳 CARTÃO SANTANDER CAMILA', value: 7368.73, type: 'negative' },
             { id: 'demais-cartoes', label: '💳 DEMAIS CARTÕES', value: 1215.59, type: 'warning' },
-            { id: 'disponivel', label: '📈 DISPONÍVEL', value: -6567.32, type: 'negative' }
+            { id: 'disponivel', label: '📈 DISPONÍVEL (COMIDA + TRANSPORTE + EMERGÊNCIA)', value: -6567.32, type: 'negative' }
         ];
 
         function formatarMoeda(valor) {
@@ -430,6 +533,8 @@
 
                 preencherCards();
                 gerarCalendario();
+                mostrarVencimento();
+
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
 
@@ -453,6 +558,20 @@
             document.getElementById('cards-container').innerHTML = html;
         }
 
+        function mostrarVencimento() {
+            const transacoes = dados.transacoes || [];
+            if (transacoes.length > 1) {
+                const primeira = transacoes[1];
+                document.getElementById('vencimento-text').textContent =
+                    `${primeira[1]} (${primeira[2]}) - ${formatarMoeda(primeira[4])}`;
+                document.getElementById('vencimento-banner').style.display = 'flex';
+            }
+        }
+
+        function fecharVencimento() {
+            document.getElementById('vencimento-banner').style.display = 'none';
+        }
+
         function gerarCalendario() {
             const ano = mesAtual.getFullYear();
             const mes = mesAtual.getMonth();
@@ -464,12 +583,10 @@
 
             let html = '';
 
-            // Dias vazios antes do primeiro dia do mês
             for (let i = 0; i < primeiroDia; i++) {
                 html += '<div class="day empty"></div>';
             }
 
-            // Dias do mês
             const transacoes = dados.transacoes || [];
             for (let dia = 1; dia <= ultimoDia; dia++) {
                 const dataStr = `${ano}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
@@ -482,7 +599,7 @@
 
                 html += `
                     <div class="${classes}" onclick="abrirDia('${dataStr}')">
-                        <div class="day-number">${dia}</div>
+                        <div>${dia}</div>
                         ${temEvento ? '<div class="day-dot"></div>' : ''}
                     </div>
                 `;
@@ -524,7 +641,7 @@
             const dataParts = data.split('-');
             const dataFormatada = `${dataParts[2]}/${dataParts[1]}/${dataParts[0]}`;
 
-            document.getElementById('modalTitle').textContent = `📅 Transações de ${dataFormatada}`;
+            document.getElementById('modalTitle').textContent = `📅 ${dataFormatada}`;
 
             let total = 0;
             let html = '';

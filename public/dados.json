@@ -1,0 +1,19 @@
+{
+  "transacoes": [
+    ["Data", "Descrição", "Categoria", "Cartão", "Valor", "Parcelas"],
+    ["2026-09-01", "Mercado X", "Alimentação", "SANTANDER", "150.50", "1"],
+    ["2026-09-02", "Uber", "Transporte", "MERCADO_PAGO_CARLA", "45.00", "1"],
+    ["2026-09-03", "Farmácia", "Saúde", "SICOOB", "89.90", "1"],
+    ["2026-09-05", "Streaming", "Assinaturas", "DIGIO", "49.90", "1"],
+    ["2026-09-07", "Roupas", "Roupas/Moda", "MERCADO_PAGO_IASMIM", "250.00", "2"],
+    ["2026-09-10", "Conta de Luz", "Moradia", "SANTANDER", "180.00", "1"],
+    ["2026-09-12", "Pet Shop", "Pets", "MERCADO_PAGO_CARLA", "120.00", "1"],
+    ["2026-09-15", "Restaurante", "Lazer", "SICOOB", "95.00", "1"],
+    ["2026-09-18", "Compras Online", "Compras Online", "DIGIO", "320.00", "3"],
+    ["2026-09-20", "Médico", "Saúde", "SANTANDER", "200.00", "1"]
+  ],
+  "resumo": [
+    ["Mês", "Quantidade", "Total", "Média"],
+    ["Setembro", "10", "1500.30", "150.03"]
+  ]
+}

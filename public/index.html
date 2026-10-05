@@ -31,12 +31,43 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 30px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
+        }
+
+        .header-left {
+            text-align: center;
+            flex: 1;
+        }
+
+        .btn-conectar {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-conectar:hover {
+            background: white;
+            color: #667eea;
+            transform: scale(1.05);
         }
 
         .loading {
@@ -211,8 +242,11 @@
 <body>
     <div class="container">
         <header>
-            <h1>💰 Gestor Financeiro</h1>
-            <p>Gerenciador de Finanças Pessoais</p>
+            <div class="header-left">
+                <h1>💰 Gestor Financeiro</h1>
+                <p>Gerenciador de Finanças Pessoais</p>
+            </div>
+            <button class="btn-conectar" onclick="conectarGoogle()">📊 Conectar</button>
         </header>
 
         <div id="error" class="error"></div>
@@ -415,6 +449,10 @@
 
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
+        }
+
+        function conectarGoogle() {
+            window.location.href = '/api/auth/login';
         }
 
         // Carregar dados ao abrir a página
